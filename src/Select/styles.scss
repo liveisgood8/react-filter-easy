@@ -1,0 +1,9 @@
+@import '../variables.scss';
+
+.react-search {
+  .react-search__select {
+    .ant-select-selector {
+      height: $tag-height !important;
+    }
+  }
+}
