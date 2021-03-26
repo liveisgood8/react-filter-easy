@@ -1,3 +1,3 @@
-import { ConditionTag } from "./ConditionTag";
+import { ConditionTag } from './ConditionTag';
 
 export default ConditionTag;

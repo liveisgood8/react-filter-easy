@@ -1,3 +1,3 @@
-import { ConditionInput } from "./ConditionInput";
+import { ConditionInput } from './ConditionInput';
 
 export default ConditionInput;

@@ -1,15 +1,15 @@
-import "./styles.scss";
+import './styles.scss';
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo } from 'react';
 import {
   IConditionWithOperatorMeta,
   IField,
   INamedOperatorMeta,
   IOperatorMeta,
-  OperatorsMeta
-} from "../types";
-import Select from "../Select";
-import { Tag } from "../Tag";
+  OperatorsMeta,
+} from '../types';
+import Select from '../Select';
+import { Tag } from '../Tag';
 
 interface IConditionNameSelectProps {
   fields: IField[];
@@ -18,7 +18,7 @@ interface IConditionNameSelectProps {
 
 const ConditionNameSelect: React.FC<IConditionNameSelectProps> = ({
   fields,
-  onComplete
+  onComplete,
 }) => {
   return (
     <Select
@@ -26,7 +26,7 @@ const ConditionNameSelect: React.FC<IConditionNameSelectProps> = ({
       placeholder="Поле"
       items={fields.map((f) => ({
         label: f.label ?? f.name,
-        value: f
+        value: f,
       }))}
       onChange={(item) => onComplete?.(item.value as IField)}
     />
@@ -40,13 +40,13 @@ interface IConditionOperatorSelectProps {
 
 const ConditionOperatorSelect: React.FC<IConditionOperatorSelectProps> = ({
   operators,
-  onComplete
+  onComplete,
 }) => {
   const mappedOperators: INamedOperatorMeta[] = Object.keys(operators).map(
     (n) => ({
       name: n,
-      ...operators[n]
-    })
+      ...operators[n],
+    }),
   );
 
   return (
@@ -55,7 +55,7 @@ const ConditionOperatorSelect: React.FC<IConditionOperatorSelectProps> = ({
       placeholder="Оператор"
       items={mappedOperators.map((o) => ({
         label: o.label,
-        value: o
+        value: o,
       }))}
       onChange={(item) => onComplete?.(item.value as INamedOperatorMeta)}
     />
@@ -75,12 +75,12 @@ interface IConditionInputProps {
 export const ConditionInput: React.FC<IConditionInputProps> = ({
   fields,
   operators,
-  onComplete
+  onComplete,
 }) => {
-  const [step, setStep] = useState<"name" | "operator" | "value">("name");
+  const [step, setStep] = useState<'name' | 'operator' | 'value'>('name');
   const [field, setField] = useState<IField>();
   const [operator, setOperator] = useState<INamedOperatorMeta>();
-  const [value, setValue] = useState<any>("");
+  const [value, setValue] = useState<any>('');
 
   const getFieldOperators = (): OperatorsMeta => {
     if (!field || !field.availableOperators) {
@@ -101,17 +101,17 @@ export const ConditionInput: React.FC<IConditionInputProps> = ({
     onComplete?.({
       name: field.name,
       operator: operator,
-      value
+      value,
     });
     setField(undefined);
     setOperator(undefined);
-    setValue("");
-    setStep("name");
+    setValue('');
+    setStep('name');
   };
 
   const handleCompleteField = (selectedField: IField) => {
     setField(selectedField);
-    setStep("operator");
+    setStep('operator');
   };
 
   const handleCompleteOperator = (selectedOperator: INamedOperatorMeta) => {
@@ -119,12 +119,12 @@ export const ConditionInput: React.FC<IConditionInputProps> = ({
       handleComplete(field, selectedOperator);
     } else {
       setOperator(selectedOperator);
-      setStep("value");
+      setStep('value');
     }
   };
 
   const handleEditorKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && field && operator) {
+    if (e.key === 'Enter' && field && operator) {
       handleComplete(field, operator);
     }
   };
@@ -136,11 +136,11 @@ export const ConditionInput: React.FC<IConditionInputProps> = ({
 
     if (!field.valueEditor) {
       throw new Error(
-        `Field value editor required for '${operator.name}' operator`
+        `Field value editor required for '${operator.name}' operator`,
       );
     }
 
-    const mergedValuePropName = field.valueEditor.valuePropName ?? "value";
+    const mergedValuePropName = field.valueEditor.valuePropName ?? 'value';
     const mergedGetValueFromEvent =
       field.valueEditor.getValueFromEvent ?? fallbackGetValueFromEvent;
 
@@ -148,7 +148,7 @@ export const ConditionInput: React.FC<IConditionInputProps> = ({
       [mergedValuePropName]: value,
       onChange: (args: any[]) => setValue(mergedGetValueFromEvent(args)),
       onKeyDown: handleEditorKeyDown,
-      autoFocus: true
+      autoFocus: true,
     });
   }, [field, operator, value, setValue]);
 
@@ -162,16 +162,16 @@ export const ConditionInput: React.FC<IConditionInputProps> = ({
       {operator && (
         <Tag className="condition-input-wrapper__element">{operator.label}</Tag>
       )}
-      {step === "name" && (
+      {step === 'name' && (
         <ConditionNameSelect fields={fields} onComplete={handleCompleteField} />
       )}
-      {field && step === "operator" && (
+      {field && step === 'operator' && (
         <ConditionOperatorSelect
           operators={field.availableOperators ? getFieldOperators() : operators}
           onComplete={handleCompleteOperator}
         />
       )}
-      {step === "value" && (
+      {step === 'value' && (
         <div className="condition-input-wrapper__input-wrapper">
           {clonedValueEditor}
         </div>

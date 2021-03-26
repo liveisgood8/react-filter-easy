@@ -1,23 +1,22 @@
-import "./styles.scss";
+import './styles.scss';
 
-import React from "react";
-import ConditionTag from "./ConditionTag";
-import ConditionInput from "./ConditionInput";
-import { defaultOperators, getOperatorMeta } from "./operators";
+import React from 'react';
+import ConditionTag from './ConditionTag';
+import ConditionInput from './ConditionInput';
+import { defaultOperators, getOperatorMeta } from './operators';
 import {
   ICondition,
   IConditionWithOperatorMeta,
   IField,
-  OperatorsMeta
-} from "./types";
-import Input from "antd/lib/input";
+  OperatorsMeta,
+} from './types';
 
 function validateDuplicateConditions(conditions?: ICondition[]) {
   if (!conditions) {
     return;
   }
 
-  /*const result = conditions.filter(
+  /* const result = conditions.filter(
     (filterItem, i) =>
       conditions.findIndex((e) => e.name === filterItem.name) !== i
   );
@@ -42,7 +41,7 @@ export const Search: React.FC<ISearchProps> = ({
   fields,
   conditions,
   operators,
-  onChange
+  onChange,
 }) => {
   validateDuplicateConditions(conditions);
 
@@ -50,11 +49,11 @@ export const Search: React.FC<ISearchProps> = ({
   const conditionsWithOperatorsMeta:
     | IConditionWithOperatorMeta[]
     | undefined = conditions?.map((c) => ({
-    name: c.name,
-    operator: getOperatorMeta(c.operator, mergedOperators),
-    value: c.value,
-    stringify: c.stringify
-  }));
+      name: c.name,
+      operator: getOperatorMeta(c.operator, mergedOperators),
+      value: c.value,
+      stringify: c.stringify,
+    }));
 
   const handleConditionClose = (condition: IConditionWithOperatorMeta) => {
     if (!conditionsWithOperatorsMeta || !onChange) {
@@ -65,22 +64,22 @@ export const Search: React.FC<ISearchProps> = ({
       .filter((c) => c.name !== condition.name)
       .map<ICondition>((c) => ({
         ...c,
-        operator: c.operator.name
+        operator: c.operator.name,
       }));
 
     onChange(filteredConditions);
   };
 
   const handleConditionInputComplete = (
-    condition: IConditionWithOperatorMeta
+    condition: IConditionWithOperatorMeta,
   ) => {
     onChange?.([
       ...(conditions ?? []),
       {
         name: condition.name,
         operator: condition.operator.name,
-        value: condition.value
-      }
+        value: condition.value,
+      },
     ]);
   };
 

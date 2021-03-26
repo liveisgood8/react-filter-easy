@@ -1,40 +1,40 @@
-import { INamedOperatorMeta, OperatorsMeta } from "./types";
+import { INamedOperatorMeta, OperatorsMeta } from './types';
 
 export const defaultOperators: OperatorsMeta = {
-  null: {
-    label: "null",
-    withoutValue: true
+  'null': {
+    label: 'null',
+    withoutValue: true,
   },
-  "not-null": {
-    label: "not null",
-    withoutValue: true
+  'not-null': {
+    label: 'not null',
+    withoutValue: true,
   },
-  equal: {
-    label: "="
+  'equal': {
+    label: '=',
   },
-  "not-equal": {
-    label: "!="
+  'not-equal': {
+    label: '!=',
   },
-  more: {
-    label: ">"
+  'more': {
+    label: '>',
   },
-  less: {
-    label: "<"
-  }
+  'less': {
+    label: '<',
+  },
 };
 
 export function getOperatorMeta(
   operatorName: string,
-  operatorsMeta: OperatorsMeta
+  operatorsMeta: OperatorsMeta,
 ): INamedOperatorMeta {
   const meta = operatorsMeta[operatorName];
   if (!meta) {
     throw new Error(
-      `Meta is not founded for operator with name: ${operatorName}`
+      `Meta is not founded for operator with name: ${operatorName}`,
     );
   }
   return {
     name: operatorName,
-    ...meta
+    ...meta,
   };
 }

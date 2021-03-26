@@ -1,4 +1,4 @@
-import { Search } from "./Search";
-export { ICondition } from "./types";
+import { Search } from './Search';
+export { ICondition } from './types';
 
 export default Search;

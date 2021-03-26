@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement } from 'react';
 
 export interface IField {
   label?: string;
@@ -12,12 +12,12 @@ export interface IField {
 }
 
 type DefaultOperatorsName =
-  | "null"
-  | "not-null"
-  | "equal"
-  | "not-equal"
-  | "more"
-  | "less"
+  | 'null'
+  | 'not-null'
+  | 'equal'
+  | 'not-equal'
+  | 'more'
+  | 'less'
   | string;
 
 export interface IOperatorMeta {
@@ -39,6 +39,6 @@ export interface ICondition {
 }
 
 export interface IConditionWithOperatorMeta
-  extends Omit<ICondition, "operator"> {
+  extends Omit<ICondition, 'operator'> {
   operator: INamedOperatorMeta;
 }

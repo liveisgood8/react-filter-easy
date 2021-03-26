@@ -1,8 +1,8 @@
-import "./styles.scss";
+import './styles.scss';
 
-import React, { useState } from "react";
-import cn from "classnames";
-import AntSelect from "antd/lib/select";
+import React, { useState } from 'react';
+import cn from 'classnames';
+import AntSelect from 'antd/lib/select';
 
 interface ISelectItem {
   label: string;
@@ -22,19 +22,19 @@ export const Select: React.FC<ISelectProps> = ({
   className,
   placeholder,
   items,
-  onChange
+  onChange,
 }) => {
   const [open, setOpen] = useState(true);
 
   return (
     <AntSelect
-      className={cn("react-search__select", className)}
+      className={cn('react-search__select', className)}
       autoFocus={true}
       open={open}
       onDropdownVisibleChange={setOpen}
       size="small"
       placeholder={placeholder}
-      style={{ minWidth: "150px" }}
+      style={{ minWidth: '150px' }}
       onChange={(_, option) => onChange((option as any).item)}
       showSearch={true}
       filterOption={(input, option) =>

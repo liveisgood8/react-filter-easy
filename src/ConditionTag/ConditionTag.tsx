@@ -1,11 +1,11 @@
-import "./styles.scss";
+import './styles.scss';
 
-import React, { Fragment } from "react";
-import { Tag } from "../Tag";
-import { IConditionWithOperatorMeta } from "../types";
+import React, { Fragment } from 'react';
+import { Tag } from '../Tag';
+import { IConditionWithOperatorMeta } from '../types';
 
 function fallbackStringify(value?: any) {
-  return value ? value.toString() : "";
+  return value ? value.toString() : '';
 }
 
 interface IConditionTag {
@@ -15,7 +15,7 @@ interface IConditionTag {
 
 export const ConditionTag: React.FC<IConditionTag> = ({
   condition,
-  onClose
+  onClose,
 }) => {
   const conditionStringify = condition.stringify ?? fallbackStringify;
 
@@ -37,27 +37,27 @@ export const ConditionTag: React.FC<IConditionTag> = ({
   };
 
   const renderCondition = () => {
-    const operatorRenderer = condition.operator.withoutValue
-      ? renderAsLastTag
-      : renderTag;
-    const valueRenderer = condition.operator.withoutValue
-      ? undefined
-      : renderAsLastTag;
+    const operatorRenderer = condition.operator.withoutValue ?
+      renderAsLastTag :
+      renderTag;
+    const valueRenderer = condition.operator.withoutValue ?
+      undefined :
+      renderAsLastTag;
 
     return (
       <Fragment>
         {renderTag(
-          "condition-tag__element condition-tag__name",
-          condition.name
+          'condition-tag__element condition-tag__name',
+          condition.name,
         )}
         {operatorRenderer(
-          "condition-tag__element condition-tag__operator",
-          condition.operator.label
+          'condition-tag__element condition-tag__operator',
+          condition.operator.label,
         )}
         {valueRenderer &&
           valueRenderer(
-            "condition-tag__element condition-tag__value",
-            conditionStringify(condition.value)
+            'condition-tag__element condition-tag__value',
+            conditionStringify(condition.value),
           )}
       </Fragment>
     );

@@ -1,5 +1,5 @@
-import React from "react";
-import AntTag from "antd/lib/tag";
+import React from 'react';
+import AntTag from 'antd/lib/tag';
 
 interface ITagProps {
   className?: string;
@@ -11,7 +11,7 @@ export const Tag: React.FC<ITagProps> = ({
   className,
   closable,
   onClose,
-  children
+  children,
 }) => {
   return (
     <AntTag className={className} closable={closable} onClose={onClose}>
