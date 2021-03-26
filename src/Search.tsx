@@ -152,7 +152,6 @@ export const Search: React.FC<ISearchProps> = ({
       ))}
       <ConditionInput
         placeholders={mergedPlaceholders}
-        theme={mergedTheme}
         getStyles={getStyles}
         fields={fields ?? []}
         operators={mergedOperators}

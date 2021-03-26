@@ -12,7 +12,6 @@ import {
 import Select from '../Select';
 import { Tag } from '../Tag';
 import { GetStyles, StyleFn } from '../styles';
-import { ITheme } from '../theme';
 
 export const conditionInputStyles: StyleFn = (theme) => ({
   display: 'flex',
