@@ -69,9 +69,11 @@ const ConditionNameSelect: React.FC<IConditionNameSelectProps> = ({
   const getFieldLabel = (field: IField) => {
     return (
       <div css={nameSelectItemStyles}>
-        <div css={nameSelectIconStyles}>
-          {field.icon}
-        </div>
+        {field.icon && (
+          <div css={nameSelectIconStyles}>
+            {field.icon}
+          </div>
+        )}
         <span>{field.label ?? field.name}</span>
       </div>
     );

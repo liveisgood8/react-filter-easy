@@ -45,7 +45,7 @@ interface ISearchProps {
   fields?: IField[];
   conditions?: ICondition[];
   operators?: OperatorsMeta | OperatorsFunc;
-  onChange?: (conditions?: ICondition[]) => void;
+  onChange?: (conditions: ICondition[]) => void;
 }
 
 export const Search: React.FC<ISearchProps> = ({
