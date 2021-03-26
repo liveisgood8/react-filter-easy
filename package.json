@@ -10,8 +10,10 @@
   "license": "MIT",
   "repository": "https://github.com/liveisgood8/react-filter-easy",
   "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "module": "dist/react-filter-easy.esm.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsdx build",
     "prepublish": "npm run build",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
@@ -27,6 +29,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.13.10",
+    "@babel/preset-react": "^7.12.13",
+    "@emotion/babel-plugin": "^11.2.0",
     "@storybook/addon-actions": "^6.1.21",
     "@storybook/addon-essentials": "^6.1.21",
     "@storybook/addon-links": "^6.1.21",
@@ -47,6 +51,7 @@
     "react-dom": "^17.0.0",
     "sass": "^1.32.8",
     "sass-loader": "^11.0.1",
+    "tsdx": "^0.14.1",
     "typescript": "4.1.3"
   }
 }

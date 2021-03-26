@@ -3,6 +3,7 @@
     "./src/**/*" 
   ],
   "compilerOptions": {
+    "target": "ES5",
     "types": [
       "@emotion/core"
     ],
@@ -12,7 +13,7 @@
       "dom",
       "es2015"
     ],
-    "jsx": "react-jsx",
+    "jsx": "react",
     "declaration": true,
     "newLine": "lf",
     "outDir": "./dist"
