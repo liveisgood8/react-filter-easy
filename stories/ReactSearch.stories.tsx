@@ -1,3 +1,4 @@
+import { ReactComponent as Icon } from './box.svg';
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
@@ -8,9 +9,12 @@ export default {
   component: Search,
 } as Meta;
 
+console.log(Icon);
+
 const fields: IField[] = [{
   label: 'Field #1',
   name: 'field1',
+  icon: <Icon />,
   valueEditor: {
     component: <input />,
   },

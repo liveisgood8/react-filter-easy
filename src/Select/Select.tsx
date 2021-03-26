@@ -5,8 +5,9 @@ import { jsx } from '@emotion/react';
 import AntSelect from 'antd/lib/select';
 
 interface ISelectItem {
-  label: string;
-  value: any;
+  label?: React.ReactNode;
+  value: string;
+  data: any;
 }
 
 interface ISelectProps {
@@ -39,6 +40,7 @@ export const Select: React.FC<ISelectProps> = ({
       size="small"
       placeholder={placeholder}
       style={{ minWidth: '150px' }}
+      optionLabelProp="value"
       onChange={(_, option) => onChange((option as any).item)}
       showSearch={true}
       filterOption={(input, option) =>
@@ -46,7 +48,7 @@ export const Select: React.FC<ISelectProps> = ({
       }
     >
       {items?.map((e, i) => (
-        <AntSelect.Option key={i} value={e.label} item={e}>
+        <AntSelect.Option key={i} value={e.value} test="test" item={e}>
           {e.label}
         </AntSelect.Option>
       ))}

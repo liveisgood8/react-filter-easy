@@ -33,6 +33,18 @@ export const conditionInputEditorStyles: StyleFn = (theme) => ({
 const wrapperElementStyles = css({
   margin: '0 2px',
 });
+
+const nameSelectItemStyles = css({
+  display: 'flex',
+  alignItems: 'center',
+});
+
+const nameSelectIconStyles = css({
+  width: '20px',
+  height: '20px',
+  marginRight: '8px',
+});
+
 interface IConditionNameSelectProps {
   autoFocus?: boolean;
   placeholders: IPlaceholders;
@@ -48,13 +60,22 @@ const ConditionNameSelect: React.FC<IConditionNameSelectProps> = ({
 }) => {
   const [open, setOpen] = useState(false);
 
-  console.log(autoFocus);
-
   useEffect(() => {
     if (autoFocus) {
       setOpen(true);
     }
   }, [autoFocus]);
+
+  const getFieldLabel = (field: IField) => {
+    return (
+      <div css={nameSelectItemStyles}>
+        <div css={nameSelectIconStyles}>
+          {field.icon}
+        </div>
+        <span>{field.label ?? field.name}</span>
+      </div>
+    );
+  };
 
   return (
     <Select
@@ -63,11 +84,12 @@ const ConditionNameSelect: React.FC<IConditionNameSelectProps> = ({
       open={open}
       placeholder={placeholders.chooseField}
       items={fields.map((f) => ({
-        label: f.label ?? f.name,
-        value: f,
+        label: getFieldLabel(f),
+        value: f.name,
+        data: f,
       }))}
       onOpenChange={setOpen}
-      onChange={(item) => onComplete?.(item.value as IField)}
+      onChange={(item) => onComplete?.(item.data as IField)}
     />
   );
 };
@@ -99,10 +121,11 @@ const ConditionOperatorSelect: React.FC<IConditionOperatorSelectProps> = ({
       placeholder={placeholders.chooseOperator}
       items={mappedOperators.map((o) => ({
         label: o.label,
-        value: o,
+        value: o.name,
+        data: o,
       }))}
       onOpenChange={setOpen}
-      onChange={(item) => onComplete?.(item.value as INamedOperatorMeta)}
+      onChange={(item) => onComplete?.(item.data as INamedOperatorMeta)}
     />
   );
 };

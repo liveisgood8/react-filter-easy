@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 
 export interface IPlaceholders {
   chooseField?: string;
@@ -6,7 +6,8 @@ export interface IPlaceholders {
 }
 
 export interface IField {
-  label?: string;
+  label?: React.ReactNode;
+  icon?: React.ReactNode;
   name: string;
   availableOperators?: DefaultOperatorsName[];
   valueEditor?: {
