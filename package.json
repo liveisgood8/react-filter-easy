@@ -1,24 +1,23 @@
 {
-  "name": "react-search",
+  "name": "react-filter-easy",
   "version": "1.0.0",
-  "description": "easy filter react box",
+  "description": "Easy filter box for react",
   "keywords": [
     "search",
     "filter"
   ],
   "author": "liveisgood8",
   "license": "MIT",
-  "repository": "https://github.com/liveisgood8/react-search",
+  "repository": "https://github.com/liveisgood8/react-filter-easy",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
+    "prepublish": "npm run build",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "@emotion/react": "^11.1.5",
-    "@types/classnames": "2.2.11",
-    "classnames": "2.2.6"
+    "@emotion/react": "^11.1.5"
   },
   "peerDependencies": {
     "antd": "4.14.0",
