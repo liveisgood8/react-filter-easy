@@ -21,6 +21,12 @@ export const defaultOperators: OperatorsMeta = {
   'less': {
     label: '<',
   },
+  'contain': {
+    label: 'contain',
+  },
+  'not-contain': {
+    label: 'not contain',
+  },
 };
 
 export function getOperatorMeta(

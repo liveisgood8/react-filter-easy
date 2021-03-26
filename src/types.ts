@@ -23,6 +23,8 @@ export type DefaultOperatorsName =
   | 'not-equal'
   | 'more'
   | 'less'
+  | 'contain'
+  | 'not-contain'
   | string;
 
 export interface IOperatorMeta {
