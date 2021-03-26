@@ -1,19 +1,40 @@
-import './styles.scss';
-
+/** @jsxRuntime classic */
+/** @jsx jsx */
 import React, { Fragment } from 'react';
+import { jsx } from '@emotion/react';
 import { Tag } from '../Tag';
 import { IConditionWithOperatorMeta } from '../types';
+import { ITheme } from '../theme';
 
 function fallbackStringify(value?: any) {
   return value ? value.toString() : '';
 }
 
+const getConditionElementStyles = (theme: ITheme) => ({
+  'margin-right': theme.spacing.conditionInternal,
+});
+
+const getConditionTagStyles = (theme: ITheme) => ({
+  'display': 'flex',
+  'cursor': 'pointer',
+  'height': theme.tagHeight,
+  'margin-right': theme.spacing.conditions,
+
+  '&:hover': {
+    '.condition-tag__element': {
+      'background-color': theme.colors.conditionTagHoverColor,
+    },
+  },
+});
+
 interface IConditionTag {
+  theme: ITheme;
   condition: IConditionWithOperatorMeta;
   onClose?: () => void;
 }
 
 export const ConditionTag: React.FC<IConditionTag> = ({
+  theme,
   condition,
   onClose,
 }) => {
@@ -25,12 +46,12 @@ export const ConditionTag: React.FC<IConditionTag> = ({
   };
 
   const renderTag = (className: string, label: string) => {
-    return <Tag className={className}>{label}</Tag>;
+    return <Tag css={getConditionElementStyles(theme)} className={className}>{label}</Tag>;
   };
 
   const renderAsLastTag = (className: string, label: string) => {
     return (
-      <Tag closable={true} onClose={handleClose} className={className}>
+      <Tag css={getConditionElementStyles(theme)} closable={true} onClose={handleClose} className={className}>
         {label}
       </Tag>
     );
@@ -47,21 +68,21 @@ export const ConditionTag: React.FC<IConditionTag> = ({
     return (
       <Fragment>
         {renderTag(
-          'condition-tag__element condition-tag__name',
-          condition.name,
+          'condition-tag__element',
+          condition.label ?? condition.name,
         )}
         {operatorRenderer(
-          'condition-tag__element condition-tag__operator',
+          'condition-tag__element',
           condition.operator.label,
         )}
         {valueRenderer &&
           valueRenderer(
-            'condition-tag__element condition-tag__value',
+            'condition-tag__element',
             conditionStringify(condition.value),
           )}
       </Fragment>
     );
   };
 
-  return <div className="condition-tag">{renderCondition()}</div>;
+  return <div css={getConditionTagStyles(theme)}>{renderCondition()}</div>;
 };

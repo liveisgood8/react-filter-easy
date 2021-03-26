@@ -3,6 +3,9 @@
     "./src/**/*" 
   ],
   "compilerOptions": {
+    "types": [
+      "@emotion/core"
+    ],
     "strict": true,
     "esModuleInterop": true,
     "lib": [

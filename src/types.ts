@@ -1,5 +1,10 @@
 import { ReactElement } from 'react';
 
+export interface IPlaceholders {
+  chooseField?: string;
+  chooseOperator?: string;
+}
+
 export interface IField {
   label?: string;
   name: string;
@@ -32,6 +37,7 @@ export interface INamedOperatorMeta extends IOperatorMeta {
 export type OperatorsMeta = { [name in DefaultOperatorsName]: IOperatorMeta };
 
 export interface ICondition {
+  label?: string;
   name: string;
   operator: DefaultOperatorsName | string;
   value?: any;

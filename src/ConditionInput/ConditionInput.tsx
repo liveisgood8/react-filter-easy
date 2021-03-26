@@ -1,29 +1,54 @@
-import './styles.scss';
-
+/** @jsxRuntime classic */
+/** @jsx jsx */
 import React, { useState, useMemo } from 'react';
+import { jsx, css } from '@emotion/react';
 import {
   IConditionWithOperatorMeta,
   IField,
   INamedOperatorMeta,
-  IOperatorMeta,
+  IPlaceholders,
   OperatorsMeta,
 } from '../types';
 import Select from '../Select';
 import { Tag } from '../Tag';
+import { GetStyles, StyleFn } from '../styles';
+import { ITheme } from '../theme';
 
+export const conditionInputStyles: StyleFn = (theme) => ({
+  display: 'flex',
+  height: theme.tagHeight,
+});
+
+export const conditionSelectStyles = css({
+  alignSelf: 'center',
+});
+
+
+export const conditionInputEditorStyles: StyleFn = (theme) => ({
+  'height': theme.tagHeight,
+  '> *': {
+    height: 'inherit',
+  },
+});
+
+const wrapperElementStyles = css({
+  margin: '0 2px',
+});
 interface IConditionNameSelectProps {
+  placeholders: IPlaceholders;
   fields: IField[];
   onComplete?: (field: IField) => void;
 }
 
 const ConditionNameSelect: React.FC<IConditionNameSelectProps> = ({
+  placeholders,
   fields,
   onComplete,
 }) => {
   return (
     <Select
-      className="react-search__condition-input"
-      placeholder="Поле"
+      css={conditionSelectStyles}
+      placeholder={placeholders.chooseField}
       items={fields.map((f) => ({
         label: f.label ?? f.name,
         value: f,
@@ -34,11 +59,13 @@ const ConditionNameSelect: React.FC<IConditionNameSelectProps> = ({
 };
 
 interface IConditionOperatorSelectProps {
+  placeholders: IPlaceholders;
   operators: OperatorsMeta;
   onComplete?: (operator: INamedOperatorMeta) => void;
 }
 
 const ConditionOperatorSelect: React.FC<IConditionOperatorSelectProps> = ({
+  placeholders,
   operators,
   onComplete,
 }) => {
@@ -51,8 +78,8 @@ const ConditionOperatorSelect: React.FC<IConditionOperatorSelectProps> = ({
 
   return (
     <Select
-      className="react-search__condition-input"
-      placeholder="Оператор"
+      css={conditionSelectStyles}
+      placeholder={placeholders.chooseOperator}
       items={mappedOperators.map((o) => ({
         label: o.label,
         value: o,
@@ -67,12 +94,18 @@ function fallbackGetValueFromEvent(e: React.ChangeEvent<HTMLInputElement>) {
 }
 
 interface IConditionInputProps {
+  theme: ITheme,
+  getStyles: GetStyles;
+  placeholders: IPlaceholders;
   fields: IField[];
   operators: OperatorsMeta;
   onComplete?: (condition: IConditionWithOperatorMeta) => void;
 }
 
 export const ConditionInput: React.FC<IConditionInputProps> = ({
+  theme,
+  getStyles,
+  placeholders,
   fields,
   operators,
   onComplete,
@@ -153,26 +186,31 @@ export const ConditionInput: React.FC<IConditionInputProps> = ({
   }, [field, operator, value, setValue]);
 
   return (
-    <div className="condition-input-wrapper">
+    <div css={getStyles('conditionInputStyles')}>
       {field && (
-        <Tag className="condition-input-wrapper__element">
+        <Tag css={wrapperElementStyles}>
           {field.label ?? field.name}
         </Tag>
       )}
       {operator && (
-        <Tag className="condition-input-wrapper__element">{operator.label}</Tag>
+        <Tag css={wrapperElementStyles}>{operator.label}</Tag>
       )}
       {step === 'name' && (
-        <ConditionNameSelect fields={fields} onComplete={handleCompleteField} />
+        <ConditionNameSelect
+          placeholders={placeholders}
+          fields={fields}
+          onComplete={handleCompleteField}
+        />
       )}
       {field && step === 'operator' && (
         <ConditionOperatorSelect
+          placeholders={placeholders}
           operators={field.availableOperators ? getFieldOperators() : operators}
           onComplete={handleCompleteOperator}
         />
       )}
       {step === 'value' && (
-        <div className="condition-input-wrapper__input-wrapper">
+        <div css={getStyles('conditionInputEditorStyles')}>
           {clonedValueEditor}
         </div>
       )}

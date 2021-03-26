@@ -1,6 +1,7 @@
-import './styles.scss';
-
-import React from 'react';
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import React, { useCallback, useMemo } from 'react';
+import { jsx } from '@emotion/react';
 import ConditionTag from './ConditionTag';
 import ConditionInput from './ConditionInput';
 import { defaultOperators, getOperatorMeta } from './operators';
@@ -8,8 +9,12 @@ import {
   ICondition,
   IConditionWithOperatorMeta,
   IField,
+  IPlaceholders,
   OperatorsMeta,
 } from './types';
+import { defaultStyles, GetStyles, IStyles, StyleFn, StyleName } from './styles';
+import { defaultTheme, ITheme } from './theme';
+import { defaultPlaceholders } from './placeholders';
 
 function validateDuplicateConditions(conditions?: ICondition[]) {
   if (!conditions) {
@@ -29,15 +34,22 @@ function validateDuplicateConditions(conditions?: ICondition[]) {
   }*/
 }
 
+type SearchThemeFunc = (theme: ITheme) => ITheme;
 interface ISearchProps {
+  styles?: IStyles;
+  theme?: ITheme | SearchThemeFunc;
+  placeholders?: IPlaceholders;
   /** Fields available for creating new conditions */
-  fields: IField[];
+  fields?: IField[];
   conditions?: ICondition[];
   operators?: OperatorsMeta;
   onChange?: (conditions?: ICondition[]) => void;
 }
 
 export const Search: React.FC<ISearchProps> = ({
+  styles,
+  theme,
+  placeholders,
   fields,
   conditions,
   operators,
@@ -49,11 +61,41 @@ export const Search: React.FC<ISearchProps> = ({
   const conditionsWithOperatorsMeta:
     | IConditionWithOperatorMeta[]
     | undefined = conditions?.map((c) => ({
+      label: c.label,
       name: c.name,
       operator: getOperatorMeta(c.operator, mergedOperators),
       value: c.value,
       stringify: c.stringify,
     }));
+
+  const mergedPlaceholders = useMemo(() => {
+    return placeholders ? { ...defaultPlaceholders, ...placeholders } : defaultPlaceholders;
+  }, [placeholders]);
+
+  const mergedTheme = useMemo(() => {
+    if (theme) {
+      if (typeof theme === 'function') {
+        return theme(defaultTheme);
+      } else {
+        return { ...defaultTheme, ...theme };
+      }
+    } else {
+      return defaultTheme;
+    }
+  }, [theme]);
+
+  const mergedStyles = useMemo(() => {
+    if (styles) {
+      return { ...defaultStyles, ...styles };
+    } else {
+      return defaultStyles;
+    }
+  }, [styles]);
+
+  const getStyles: GetStyles = useCallback((styleName: StyleName, props?: any) => {
+    const styleFunction = mergedStyles[styleName] as StyleFn;
+    return styleFunction(mergedTheme, props);
+  }, [mergedStyles]);
 
   const handleConditionClose = (condition: IConditionWithOperatorMeta) => {
     if (!conditionsWithOperatorsMeta || !onChange) {
@@ -84,16 +126,20 @@ export const Search: React.FC<ISearchProps> = ({
   };
 
   return (
-    <div className="react-search">
+    <div css={getStyles('searchStyles')}>
       {conditionsWithOperatorsMeta?.map((c, i) => (
         <ConditionTag
           key={i}
+          theme={mergedTheme}
           condition={c}
           onClose={() => handleConditionClose(c)}
         />
       ))}
       <ConditionInput
-        fields={fields}
+        placeholders={mergedPlaceholders}
+        theme={mergedTheme}
+        getStyles={getStyles}
+        fields={fields ?? []}
         operators={mergedOperators}
         onComplete={handleConditionInputComplete}
       />

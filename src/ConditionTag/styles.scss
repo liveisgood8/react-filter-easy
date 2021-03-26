@@ -1,29 +1,29 @@
-@import '../variables.scss';
+// @import '../variables.scss';
 
-.react-search {
-  .condition-tag {
-    display: flex;
-    cursor: pointer;
-    height: $tag-height;
-    margin-right: $conditions-spacing;
+// .react-search {
+//   .condition-tag {
+//     display: flex;
+//     cursor: pointer;
+//     height: $tag-height;
+//     margin-right: $conditions-spacing;
 
-    &:hover {
-      .condition-tag__element {
-        background: lightgray;
-      }
-    }
+//     &:hover {
+//       .condition-tag__element {
+//         background: lightgray;
+//       }
+//     }
 
-    .condition-tag__element {
-      margin-right: $condition-internal-spacing;
-    }
+//     .condition-tag__element {
+//       margin-right: $condition-internal-spacing;
+//     }
 
-    .condition-tag__name {
-    }
+//     .condition-tag__name {
+//     }
 
-    .condition-tag__operator {
-    }
+//     .condition-tag__operator {
+//     }
 
-    .condition-tag__value {
-    }
-  }
-}
+//     .condition-tag__value {
+//     }
+//   }
+// }

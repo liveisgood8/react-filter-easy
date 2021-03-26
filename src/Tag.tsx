@@ -1,5 +1,13 @@
+/** @jsxRuntime classic */
+/** @jsx jsx */
 import React from 'react';
+import { css, jsx } from '@emotion/react';
 import AntTag from 'antd/lib/tag';
+
+const TagStyles = css({
+  display: 'flex',
+  alignItems: 'center',
+});
 
 interface ITagProps {
   className?: string;
@@ -14,7 +22,7 @@ export const Tag: React.FC<ITagProps> = ({
   children,
 }) => {
   return (
-    <AntTag className={className} closable={closable} onClose={onClose}>
+    <AntTag css={TagStyles} className={className} closable={closable} onClose={onClose}>
       {children}
     </AntTag>
   );

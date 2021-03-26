@@ -1,8 +1,9 @@
-import './styles.scss';
-
+/** @jsxRuntime classic */
+/** @jsx jsx */
 import React, { useState } from 'react';
-import cn from 'classnames';
+import { jsx } from '@emotion/react';
 import AntSelect from 'antd/lib/select';
+import { ITheme } from '../theme';
 
 interface ISelectItem {
   label: string;
@@ -28,7 +29,7 @@ export const Select: React.FC<ISelectProps> = ({
 
   return (
     <AntSelect
-      className={cn('react-search__select', className)}
+      className={className}
       autoFocus={true}
       open={open}
       onDropdownVisibleChange={setOpen}
