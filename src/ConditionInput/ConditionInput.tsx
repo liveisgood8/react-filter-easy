@@ -1,6 +1,6 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { jsx, css } from '@emotion/react';
 import {
   IConditionWithOperatorMeta,
@@ -35,24 +35,39 @@ const wrapperElementStyles = css({
   margin: '0 2px',
 });
 interface IConditionNameSelectProps {
+  autoFocus?: boolean;
   placeholders: IPlaceholders;
   fields: IField[];
   onComplete?: (field: IField) => void;
 }
 
 const ConditionNameSelect: React.FC<IConditionNameSelectProps> = ({
+  autoFocus,
   placeholders,
   fields,
   onComplete,
 }) => {
+  const [open, setOpen] = useState(false);
+
+  console.log(autoFocus);
+
+  useEffect(() => {
+    if (autoFocus) {
+      setOpen(true);
+    }
+  }, [autoFocus]);
+
   return (
     <Select
+      autoFocus={autoFocus}
       css={conditionSelectStyles}
+      open={open}
       placeholder={placeholders.chooseField}
       items={fields.map((f) => ({
         label: f.label ?? f.name,
         value: f,
       }))}
+      onOpenChange={setOpen}
       onChange={(item) => onComplete?.(item.value as IField)}
     />
   );
@@ -69,6 +84,7 @@ const ConditionOperatorSelect: React.FC<IConditionOperatorSelectProps> = ({
   operators,
   onComplete,
 }) => {
+  const [open, setOpen] = useState(true);
   const mappedOperators: INamedOperatorMeta[] = Object.keys(operators).map(
     (n) => ({
       name: n,
@@ -78,12 +94,15 @@ const ConditionOperatorSelect: React.FC<IConditionOperatorSelectProps> = ({
 
   return (
     <Select
+      autoFocus={true}
       css={conditionSelectStyles}
+      open={open}
       placeholder={placeholders.chooseOperator}
       items={mappedOperators.map((o) => ({
         label: o.label,
         value: o,
       }))}
+      onOpenChange={setOpen}
       onChange={(item) => onComplete?.(item.value as INamedOperatorMeta)}
     />
   );
@@ -94,7 +113,6 @@ function fallbackGetValueFromEvent(e: React.ChangeEvent<HTMLInputElement>) {
 }
 
 interface IConditionInputProps {
-  theme: ITheme,
   getStyles: GetStyles;
   placeholders: IPlaceholders;
   fields: IField[];
@@ -103,13 +121,13 @@ interface IConditionInputProps {
 }
 
 export const ConditionInput: React.FC<IConditionInputProps> = ({
-  theme,
   getStyles,
   placeholders,
   fields,
   operators,
   onComplete,
 }) => {
+  const [autoFocusFieldSelect, setAutoFocusFieldSelect] = useState(false);
   const [step, setStep] = useState<'name' | 'operator' | 'value'>('name');
   const [field, setField] = useState<IField>();
   const [operator, setOperator] = useState<INamedOperatorMeta>();
@@ -140,6 +158,7 @@ export const ConditionInput: React.FC<IConditionInputProps> = ({
     setOperator(undefined);
     setValue('');
     setStep('name');
+    setAutoFocusFieldSelect(true);
   };
 
   const handleCompleteField = (selectedField: IField) => {
@@ -197,6 +216,7 @@ export const ConditionInput: React.FC<IConditionInputProps> = ({
       )}
       {step === 'name' && (
         <ConditionNameSelect
+          autoFocus={autoFocusFieldSelect}
           placeholders={placeholders}
           fields={fields}
           onComplete={handleCompleteField}

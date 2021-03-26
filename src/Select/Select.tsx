@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { jsx } from '@emotion/react';
 import AntSelect from 'antd/lib/select';
-import { ITheme } from '../theme';
 
 interface ISelectItem {
   label: string;
@@ -13,7 +12,10 @@ interface ISelectItem {
 interface ISelectProps {
   className?: string;
   placeholder?: string;
+  autoFocus?: boolean;
+  open?: boolean;
   items?: ISelectItem[];
+  onOpenChange?: (opened: boolean) => void;
   onChange: (item: ISelectItem) => void;
 }
 
@@ -22,17 +24,18 @@ interface ISelectProps {
 export const Select: React.FC<ISelectProps> = ({
   className,
   placeholder,
+  autoFocus,
+  open,
   items,
+  onOpenChange,
   onChange,
 }) => {
-  const [open, setOpen] = useState(true);
-
   return (
     <AntSelect
       className={className}
-      autoFocus={true}
+      autoFocus={autoFocus}
       open={open}
-      onDropdownVisibleChange={setOpen}
+      onDropdownVisibleChange={onOpenChange}
       size="small"
       placeholder={placeholder}
       style={{ minWidth: '150px' }}

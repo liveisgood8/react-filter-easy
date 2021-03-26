@@ -37,6 +37,7 @@ function validateDuplicateConditions(conditions?: ICondition[]) {
 type OperatorsFunc = (operators: OperatorsMeta) => OperatorsMeta;
 type SearchThemeFunc = (theme: ITheme) => ITheme;
 interface ISearchProps {
+  className?: string;
   styles?: IStyles;
   theme?: ITheme | SearchThemeFunc;
   placeholders?: IPlaceholders;
@@ -48,6 +49,7 @@ interface ISearchProps {
 }
 
 export const Search: React.FC<ISearchProps> = ({
+  className,
   styles,
   theme,
   placeholders,
@@ -139,7 +141,7 @@ export const Search: React.FC<ISearchProps> = ({
   };
 
   return (
-    <div css={getStyles('searchStyles')}>
+    <div className={className} css={getStyles('searchStyles')}>
       {conditionsWithOperatorsMeta?.map((c, i) => (
         <ConditionTag
           key={i}
