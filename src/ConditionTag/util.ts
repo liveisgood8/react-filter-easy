@@ -1,4 +1,4 @@
-import { Operator, ICondition } from "../types";
+import { DefaultOperatorsName, ICondition } from '../types';
 
 interface IStringifiedCondition {
   name: string;
@@ -6,21 +6,21 @@ interface IStringifiedCondition {
   value?: string;
 }
 
-const defaultOperatorString: { [operator in Operator]: string } = {
-  equal: "=",
-  "not-equal": "!=",
-  null: "Null",
-  "not-null": "Not null",
-  less: "<",
-  more: ">"
+const defaultOperatorString: { [operator in DefaultOperatorsName]: string } = {
+  'equal': '=',
+  'not-equal': '!=',
+  'null': 'Null',
+  'not-null': 'Not null',
+  'less': '<',
+  'more': '>',
 };
 
 export function stringifyCondition(
-  condition: ICondition
+  condition: ICondition,
 ): IStringifiedCondition {
   return {
     name: condition.name,
     operator: defaultOperatorString[condition.operator],
-    value: condition.value.toString()
+    value: condition.value.toString(),
   };
 }

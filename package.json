@@ -9,7 +9,10 @@
   "author": "liveisgood8",
   "license": "MIT",
   "repository": "https://github.com/liveisgood8/react-search",
-  "main": "src/index.tsx",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
   "dependencies": {
     "@types/classnames": "2.2.11",
     "classnames": "2.2.6"

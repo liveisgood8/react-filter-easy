@@ -11,7 +11,7 @@ export interface IField {
   };
 }
 
-type DefaultOperatorsName =
+export type DefaultOperatorsName =
   | 'null'
   | 'not-null'
   | 'equal'
