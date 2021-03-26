@@ -34,6 +34,7 @@ function validateDuplicateConditions(conditions?: ICondition[]) {
   }*/
 }
 
+type OperatorsFunc = (operators: OperatorsMeta) => OperatorsMeta;
 type SearchThemeFunc = (theme: ITheme) => ITheme;
 interface ISearchProps {
   styles?: IStyles;
@@ -42,7 +43,7 @@ interface ISearchProps {
   /** Fields available for creating new conditions */
   fields?: IField[];
   conditions?: ICondition[];
-  operators?: OperatorsMeta;
+  operators?: OperatorsMeta | OperatorsFunc;
   onChange?: (conditions?: ICondition[]) => void;
 }
 
@@ -57,7 +58,18 @@ export const Search: React.FC<ISearchProps> = ({
 }) => {
   validateDuplicateConditions(conditions);
 
-  const mergedOperators: OperatorsMeta = { ...defaultOperators, ...operators };
+  const mergedOperators: OperatorsMeta = useMemo(() => {
+    if (operators) {
+      if (typeof operators === 'function') {
+        return operators(defaultOperators);
+      } else {
+        return operators;
+      }
+    } else {
+      return defaultOperators;
+    }
+  }, [operators]);
+
   const conditionsWithOperatorsMeta:
     | IConditionWithOperatorMeta[]
     | undefined = conditions?.map((c) => ({
@@ -67,6 +79,7 @@ export const Search: React.FC<ISearchProps> = ({
       value: c.value,
       stringify: c.stringify,
     }));
+
 
   const mergedPlaceholders = useMemo(() => {
     return placeholders ? { ...defaultPlaceholders, ...placeholders } : defaultPlaceholders;
