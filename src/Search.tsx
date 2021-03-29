@@ -134,6 +134,7 @@ export const Search: React.FC<ISearchProps> = ({
       ...(conditions ?? []),
       {
         name: condition.name,
+        label: condition.label,
         operator: condition.operator.name,
         value: condition.value,
       },

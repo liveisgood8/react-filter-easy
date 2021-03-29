@@ -175,6 +175,7 @@ export const ConditionInput: React.FC<IConditionInputProps> = ({
   const handleComplete = (field: IField, operator: INamedOperatorMeta) => {
     onComplete?.({
       name: field.name,
+      label: field.label,
       operator: operator,
       value,
     });
@@ -205,6 +206,13 @@ export const ConditionInput: React.FC<IConditionInputProps> = ({
     }
   };
 
+  const handleEditorBlur = () => {
+    if (field && operator) {
+      handleComplete(field, operator);
+      setAutoFocusFieldSelect(false);
+    }
+  };
+
   const clonedValueEditor = useMemo(() => {
     if (!field || !operator || operator.withoutValue) {
       return null;
@@ -224,6 +232,7 @@ export const ConditionInput: React.FC<IConditionInputProps> = ({
       [mergedValuePropName]: value,
       onChange: (args: any[]) => setValue(mergedGetValueFromEvent(args)),
       onKeyDown: handleEditorKeyDown,
+      onBlur: handleEditorBlur,
       autoFocus: true,
     });
   }, [field, operator, value, setValue]);

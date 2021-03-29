@@ -11,8 +11,8 @@ export const searchStyles: StyleFn = (theme) => ({
   'border': `1px solid ${theme.colors.searchBoxBorderColor}`,
   'padding': '5px',
   'display': 'flex',
-  'align-items': 'center',
-  'flex-wrap': 'wrap',
+  'alignItems': 'center',
+  'flexWrap': 'wrap',
 });
 
 export interface IStyles {

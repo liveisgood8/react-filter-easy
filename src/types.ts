@@ -6,7 +6,7 @@ export interface IPlaceholders {
 }
 
 export interface IField {
-  label?: React.ReactNode;
+  label?: string;
   icon?: React.ReactNode;
   name: string;
   availableOperators?: DefaultOperatorsName[];

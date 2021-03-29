@@ -11,18 +11,18 @@ function fallbackStringify(value?: any) {
 }
 
 const getConditionElementStyles = (theme: ITheme) => ({
-  'margin-right': theme.spacing.conditionInternal,
+  'marginRight': theme.spacing.conditionInternal,
 });
 
 const getConditionTagStyles = (theme: ITheme) => ({
   'display': 'flex',
   'cursor': 'pointer',
   'height': theme.tagHeight,
-  'margin-right': theme.spacing.conditions,
+  'marginRight': theme.spacing.conditions,
 
   '&:hover': {
     '.condition-tag__element': {
-      'background-color': theme.colors.conditionTagHoverColor,
+      'backgroundColor': theme.colors.conditionTagHoverColor,
     },
   },
 });
