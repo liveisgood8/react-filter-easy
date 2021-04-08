@@ -4,6 +4,8 @@ Pretty and reusable filter box for React.
 
 Currently filter component require [Antd design](https://www.npmjs.com/package/antd) as peer dependency, but in future it will be provided as self-contained component with zero dependencies. 
 
+Advantages:
+
 💅 - fully customizable;
 
 🔥 - a lot of advanced functionality.
