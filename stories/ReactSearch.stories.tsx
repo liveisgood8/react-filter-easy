@@ -1,4 +1,6 @@
-import { ReactComponent as Icon } from './box.svg';
+import { ReactComponent as SizeIcon } from './size.svg';
+import { ReactComponent as ColorIcon } from './color-palette.svg';
+import { ReactComponent as PriceIcon } from './dollar.svg';
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
@@ -10,24 +12,33 @@ export default {
 } as Meta;
 
 const fields: IField[] = [{
-  label: 'Field #1',
-  name: 'field1',
-  icon: <Icon />,
+  label: 'Size',
+  name: 'size',
+  icon: <SizeIcon />,
   valueEditor: {
     component: <input />,
   },
 }, {
-  label: 'Field #2',
-  name: 'field2',
+  label: 'Color',
+  name: 'color',
+  icon: <ColorIcon />,
+  valueEditor: {
+    component: <input />,
+  },
+}, {
+  label: 'Price',
+  name: 'price',
+  icon: <PriceIcon />,
   valueEditor: {
     component: <input />,
   },
 }];
 
 const conditions: ICondition[] = [{
-  label: 'Field #1',
-  name: 'field1',
-  operator: 'not-null',
+  label: 'Price',
+  name: 'price',
+  operator: 'equal',
+  value: '850',
 }];
 
 type Props = React.ComponentProps<typeof Search>;

@@ -154,7 +154,7 @@ export const Search: React.FC<ISearchProps> = ({
     <div className={className} css={getStyles('searchStyles')}>
       {loading ? (
         <Fragment>
-          <span id="loading-placeholder">{placeholders?.loading ?? 'Loading data...'}</span>
+          <span id="loading-placeholder">{mergedPlaceholders.loading}</span>
           <div css={loadingStyles}>
             <Spinner />
           </div>

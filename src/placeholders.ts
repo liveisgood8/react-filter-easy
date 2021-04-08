@@ -1,6 +1,7 @@
 import { IPlaceholders } from './types';
 
 export const defaultPlaceholders: IPlaceholders = {
-  chooseField: 'Choose field',
-  chooseOperator: 'Choose operator',
+  loading: 'Loading data...',
+  chooseField: 'Enter or select field...',
+  chooseOperator: 'Select operator...',
 };
