@@ -6,7 +6,7 @@ Currently filter component require [Antd design](https://www.npmjs.com/package/a
 
 💅 - fully customizable;
 
-🔥 - a lot of advanced functionality;
+🔥 - a lot of advanced functionality.
 
 ![Demo image](./assets/demo.png)
 
@@ -42,7 +42,7 @@ export default function App() {
 
   return (
     <div className="App">
-      <ReactFilter
+      <ReactFilterEasy
         fields={fields}
         conditions={conditions}
         onChange={setConditions}
