@@ -1,1 +1,4 @@
-./vscode
+./.storybook
+./.vscode
+./stories
+./assets
