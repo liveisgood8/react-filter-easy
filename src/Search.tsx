@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import React, { useCallback, useMemo } from 'react';
-import { jsx } from '@emotion/react';
+import React, { Fragment, useCallback, useMemo } from 'react';
+import { css, jsx } from '@emotion/react';
 import ConditionTag from './ConditionTag';
 import ConditionInput from './ConditionInput';
 import { defaultOperators, getOperatorMeta } from './operators';
@@ -15,6 +15,7 @@ import {
 import { defaultStyles, GetStyles, IStyles, StyleFn, StyleName } from './styles';
 import { defaultTheme, ITheme } from './theme';
 import { defaultPlaceholders } from './placeholders';
+import { Spinner } from './Spinner';
 
 function validateDuplicateConditions(conditions?: ICondition[]) {
   if (!conditions) {
@@ -34,8 +35,14 @@ function validateDuplicateConditions(conditions?: ICondition[]) {
   }*/
 }
 
+const loadingStyles = css({
+  marginLeft: 'auto',
+  marginRight: '4px',
+});
+
 type OperatorsFunc = (operators: OperatorsMeta) => OperatorsMeta;
 type SearchThemeFunc = (theme: ITheme) => ITheme;
+
 interface ISearchProps {
   className?: string;
   styles?: IStyles;
@@ -45,6 +52,7 @@ interface ISearchProps {
   fields?: IField[];
   conditions?: ICondition[];
   operators?: OperatorsMeta | OperatorsFunc;
+  loading?: boolean;
   onChange?: (conditions: ICondition[]) => void;
 }
 
@@ -56,6 +64,7 @@ export const Search: React.FC<ISearchProps> = ({
   fields,
   conditions,
   operators,
+  loading,
   onChange,
 }) => {
   validateDuplicateConditions(conditions);
@@ -143,21 +152,32 @@ export const Search: React.FC<ISearchProps> = ({
 
   return (
     <div className={className} css={getStyles('searchStyles')}>
-      {conditionsWithOperatorsMeta?.map((c, i) => (
-        <ConditionTag
-          key={i}
-          theme={mergedTheme}
-          condition={c}
-          onClose={() => handleConditionClose(c)}
-        />
-      ))}
-      <ConditionInput
-        placeholders={mergedPlaceholders}
-        getStyles={getStyles}
-        fields={fields ?? []}
-        operators={mergedOperators}
-        onComplete={handleConditionInputComplete}
-      />
+      {loading ? (
+        <Fragment>
+          <span id="loading-placeholder">{placeholders?.loading ?? 'Loading data...'}</span>
+          <div css={loadingStyles}>
+            <Spinner />
+          </div>
+        </Fragment>
+      ) : (
+        <Fragment>
+          {conditionsWithOperatorsMeta?.map((c, i) => (
+            <ConditionTag
+              key={i}
+              theme={mergedTheme}
+              condition={c}
+              onClose={() => handleConditionClose(c)}
+            />
+          ))}
+          <ConditionInput
+            placeholders={mergedPlaceholders}
+            getStyles={getStyles}
+            fields={fields ?? []}
+            operators={mergedOperators}
+            onComplete={handleConditionInputComplete}
+          />
+        </Fragment>
+      )}
     </div>
   );
 };

@@ -8,11 +8,17 @@ import { ITheme } from './theme';
 export type StyleFn = (theme: ITheme, props?: any) => InterpolationWithTheme<any>;
 
 export const searchStyles: StyleFn = (theme) => ({
+  'boxSizing': 'content-box',
+  'minHeight': theme.tagHeight,
   'border': `1px solid ${theme.colors.searchBoxBorderColor}`,
   'padding': '5px',
   'display': 'flex',
   'alignItems': 'center',
   'flexWrap': 'wrap',
+
+  '#loading-placeholder': {
+    color: '#bfbfbf',
+  },
 });
 
 export interface IStyles {

@@ -9,12 +9,13 @@ import {
   IPlaceholders,
   OperatorsMeta,
 } from '../types';
-import Select from '../Select';
 import { Tag } from '../Tag';
 import { GetStyles, StyleFn } from '../styles';
+import { AutoComplete } from '../AutoComplete';
 
 export const conditionInputStyles: StyleFn = (theme) => ({
   display: 'flex',
+  flexGrow: 1,
   height: theme.tagHeight,
 });
 
@@ -80,18 +81,18 @@ const ConditionNameSelect: React.FC<IConditionNameSelectProps> = ({
   };
 
   return (
-    <Select
+    <AutoComplete
       autoFocus={autoFocus}
       css={conditionSelectStyles}
       open={open}
       placeholder={placeholders.chooseField}
-      items={fields.map((f) => ({
+      options={fields.map((f) => ({
         label: getFieldLabel(f),
-        value: f.name,
+        value: f.label ?? f.name,
         data: f,
       }))}
-      onOpenChange={setOpen}
-      onChange={(item) => onComplete?.(item.data as IField)}
+      onOpen={setOpen}
+      onChange={(option) => onComplete?.(option.data)}
     />
   );
 };
@@ -116,18 +117,18 @@ const ConditionOperatorSelect: React.FC<IConditionOperatorSelectProps> = ({
   );
 
   return (
-    <Select
+    <AutoComplete
       autoFocus={true}
       css={conditionSelectStyles}
       open={open}
       placeholder={placeholders.chooseOperator}
-      items={mappedOperators.map((o) => ({
-        label: o.label,
-        value: o.name,
+      options={mappedOperators.map((o) => ({
+        label: <span>{o.label}</span>,
+        value: o.label,
         data: o,
       }))}
-      onOpenChange={setOpen}
-      onChange={(item) => onComplete?.(item.data as INamedOperatorMeta)}
+      onOpen={setOpen}
+      onChange={(option) => onComplete?.(option.data)}
     />
   );
 };
@@ -172,6 +173,14 @@ export const ConditionInput: React.FC<IConditionInputProps> = ({
     }, {} as OperatorsMeta);
   };
 
+  const reset = (focusFieldSelect?: boolean) => {
+    setField(undefined);
+    setOperator(undefined);
+    setValue('');
+    setStep('name');
+    setAutoFocusFieldSelect(!!focusFieldSelect);
+  };
+
   const handleComplete = (field: IField, operator: INamedOperatorMeta) => {
     onComplete?.({
       name: field.name,
@@ -179,11 +188,7 @@ export const ConditionInput: React.FC<IConditionInputProps> = ({
       operator: operator,
       value,
     });
-    setField(undefined);
-    setOperator(undefined);
-    setValue('');
-    setStep('name');
-    setAutoFocusFieldSelect(true);
+    reset(true);
   };
 
   const handleCompleteField = (selectedField: IField) => {
@@ -240,12 +245,22 @@ export const ConditionInput: React.FC<IConditionInputProps> = ({
   return (
     <div css={getStyles('conditionInputStyles')}>
       {field && (
-        <Tag css={wrapperElementStyles}>
+        <Tag
+          css={wrapperElementStyles}
+          closable={!operator}
+          onClose={() => reset()}
+        >
           {field.label ?? field.name}
         </Tag>
       )}
       {operator && (
-        <Tag css={wrapperElementStyles}>{operator.label}</Tag>
+        <Tag
+          css={wrapperElementStyles}
+          closable={true}
+          onClose={() => reset()}
+        >
+          {operator.label}
+        </Tag>
       )}
       {step === 'name' && (
         <ConditionNameSelect

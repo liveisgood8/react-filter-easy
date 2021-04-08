@@ -9,8 +9,6 @@ export default {
   component: Search,
 } as Meta;
 
-console.log(Icon);
-
 const fields: IField[] = [{
   label: 'Field #1',
   name: 'field1',
@@ -94,4 +92,11 @@ CustomizedPlaceholder.args = {
   placeholders: {
     chooseField: 'Enter field name',
   },
+} as Props;
+
+export const Loading = Template.bind({});
+Loading.args = {
+  conditions,
+  fields,
+  loading: true,
 } as Props;
