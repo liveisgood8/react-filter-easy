@@ -1,14 +1,26 @@
 {
   "name": "react-filter-easy",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Easy filter box for react",
   "keywords": [
     "search",
-    "filter"
+    "filter",
+    "component",
+    "react"
   ],
-  "author": "liveisgood8",
+  "author": {
+    "name": "liveisgood8",
+    "url": "https://github.com/liveisgood8"
+  },
+  "homepage": "https://github.com/liveisgood8/react-filter-easy#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liveisgood8/react-filter-easy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/liveisgood8/react-filter-easy/issues"
+  },
   "license": "MIT",
-  "repository": "https://github.com/liveisgood8/react-filter-easy",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "module": "dist/react-filter-easy.esm.js",
@@ -36,6 +48,7 @@
     "@storybook/addon-links": "^6.1.21",
     "@storybook/react": "^6.1.21",
     "@svgr/webpack": "^5.5.0",
+    "@types/node": "^14.14.37",
     "@types/react": "17.0.0",
     "@types/react-dom": "17.0.0",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
