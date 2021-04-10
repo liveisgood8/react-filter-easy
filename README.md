@@ -1,5 +1,9 @@
 # React-Filter-Easy
 
+![npm](https://img.shields.io/npm/v/react-filter-easy.svg?style=flat)
+![npm](https://img.shields.io/npm/dm/react-filter-easy.svg?label=%E2%8F%ACdownloads&style=flat)
+![NPM](https://img.shields.io/npm/l/react-filter-easy.svg?label=%F0%9F%93%9Clicense&style=flat)
+
 Pretty and reusable filter box for React.
 
 Currently filter component require [Antd design](https://www.npmjs.com/package/antd) as peer dependency, but in future it will be provided as self-contained component with zero dependencies. 
