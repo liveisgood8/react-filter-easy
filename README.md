@@ -20,7 +20,9 @@ npm i react-filter-easy
 ```
 
 Example of using:
-```tsx
+```jsx
+import 'antd/dist/antd.css'; // Antd styles
+
 import React, { useState } from 'react';
 import ReactFilterEasy from 'react-filter-easy';
 
@@ -43,7 +45,7 @@ export default function App() {
   const [conditions, setConditions] = useState([]);
 
   return (
-    <div className="App">
+    <div className="app">
       <ReactFilterEasy
         fields={fields}
         conditions={conditions}
